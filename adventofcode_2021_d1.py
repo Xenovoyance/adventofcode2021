@@ -16,3 +16,4 @@ def main():
 if __name__ == "__main__":
     start_time = time.time()
     print("Part 1:", main(), "(", time.time() - start_time, "seconds)")
+    
