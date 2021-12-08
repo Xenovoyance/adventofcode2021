@@ -1,35 +1,33 @@
-import itertools
 import time
 import more_itertools
 
-input = "adventofcode_2021_d1_input.txt"
-
-def part_one():
-    with open(input, "r") as f:
-        lines = f.readlines()
-        last_line = greater = 0
-        for line in lines:
-            if last_line < int(line): 
-                if last_line != 0: greater += 1
-            last_line = int(line)
-        return(str(greater))
-
-def part_two():
-    last_line = greater = 0
+def input_to_string():
+    input = "adventofcode_2021_d1_input.txt"
     input_string = []
-    
     with open(input, "r") as f:
         for line in f.readlines():
             input_string.append(int(line))
+    return input_string
+
+def part_one():
+    input_string = input_to_string()
+    last_line = greater = 0
+
+    for line in input_string:
+        if last_line < int(line) and last_line != 0: greater += 1
+        last_line = int(line)
+    return(str(greater))
+
+def part_two():
+    last_window = greater = 0
+    input_string = input_to_string()
         
-        tuple_list = list(more_itertools.windowed(input_string,n=3, step=1))
-
-        for tuple in tuple_list:
-            tuple_sum = sum(tuple)
-            if tuple_sum > last_line and last_line != 0: greater += 1
-            last_line = tuple_sum
-
-        return str(greater)
+    window_list = list(more_itertools.windowed(input_string,n=3, step=1))
+    for window in window_list:
+        window_sum = sum(window)
+        if window_sum > last_window and last_window != 0: greater += 1
+        last_window = window_sum
+    return str(greater)
         
 
 if __name__ == "__main__":
