@@ -30,6 +30,13 @@ def part_one():
 
 def check_for_bingo(board):
     bingo = False
+    for i in range(5):
+        if (board[i+1].startswith("*")):
+            if (board[i+5].startswith("*")):
+                if (board[i+10].startswith("*")):
+                    if (board[i+15].startswith("*")):
+                        if (board[i+20].startswith("*")):
+                            bingo = True
     if (board[0].startswith("*")):
         if (board[1].startswith("*")):
             if (board[2].startswith("*")):
@@ -40,30 +47,6 @@ def check_for_bingo(board):
             if (board[10].startswith("*")):
                 if (board[15].startswith("*")):
                     if (board[20].startswith("*")):
-                        bingo = True
-    if (board[1].startswith("*")):
-        if (board[6].startswith("*")):
-            if (board[11].startswith("*")):
-                if (board[16].startswith("*")):
-                    if (board[21].startswith("*")):
-                        bingo = True
-    if (board[2].startswith("*")):
-        if (board[7].startswith("*")):
-            if (board[12].startswith("*")):
-                if (board[17].startswith("*")):
-                    if (board[22].startswith("*")):
-                        bingo = True
-    if (board[3].startswith("*")):
-        if (board[8].startswith("*")):
-            if (board[13].startswith("*")):
-                if (board[18].startswith("*")):
-                    if (board[23].startswith("*")):
-                        bingo = True
-    if (board[4].startswith("*")):
-        if (board[9].startswith("*")):
-            if (board[14].startswith("*")):
-                if (board[19].startswith("*")):
-                    if (board[24].startswith("*")):
                         bingo = True
     if (board[5].startswith("*")):
         if (board[6].startswith("*")):
@@ -92,8 +75,7 @@ def check_for_bingo(board):
     return bingo
 
 def draw_a_number(board,number_to_check):
-    board = ["*"+number_to_check if x==number_to_check else x for x in board]
-    return board
+    return ["*"+number_to_check if x==number_to_check else x for x in board]
 
 def play_bingo(bingo_numbers, bingo_boards):
     lowest = lowest_winning = 999
