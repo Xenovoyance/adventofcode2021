@@ -1,5 +1,21 @@
 import time
 
+# draw a single number from a specific board
+def draw_a_number(board,number_to_check):
+    board = ["*"+number_to_check if x==number_to_check else x for x in board]
+    return board
+
+def play_bingo(bingo_numbers, bingo_boards):
+    for bid, board in enumerate(bingo_boards):
+        for nid, number in enumerate(bingo_numbers):
+            board = draw_a_number(board, number)
+            if (check_for_bingo(board)):
+                print("Board:" + str(bid) + " after " + str(nid) + " numbers (" + str(number) + ")")
+                if bid == 60 or bid == 65:
+                    print(board)
+                break
+
+
 def part_one():
     input = "adventofcode_2021_d4_input.txt"
     board_numbers = []
@@ -28,21 +44,22 @@ def part_one():
             else:
                 i+=1
     
-    print(boards[0])
+    
+    play_bingo(drawn_numbers, boards)
 
-    boards[0] = draw_a_number(boards[0],'22')
-    boards[0] = draw_a_number(boards[0],'13')
-    boards[0] = draw_a_number(boards[0],'17')
-    boards[0] = draw_a_number(boards[0],'11')
-    boards[0] = draw_a_number(boards[0],'0')
+    #print(boards)
 
-    if check_for_bingo(boards[0]):
-        print("Bingo!")
+    #boards[0] = draw_a_number(boards[0],'22')
+    #boards[0] = draw_a_number(boards[0],'13')
+    #boards[0] = draw_a_number(boards[0],'17')
+    #boards[0] = draw_a_number(boards[0],'11')
+    #boards[0] = draw_a_number(boards[0],'0')
+
+    #if check_for_bingo(boards[0]):
+    #    print("Bingo!")
 
 def check_for_bingo(board):
     bingo = False
-
-    # check both for horizintal and vertical bingo
     if (board[0].startswith("*")):
         if (board[5].startswith("*")):
             if (board[10].startswith("*")):
@@ -105,12 +122,6 @@ def check_for_bingo(board):
                     if (board[24].startswith("*")):
                         bingo = True
     return bingo
-
-# draw a single number from a specific board
-def draw_a_number(board,number_to_check):
-    board = ["*"+number_to_check if x==number_to_check else x for x in board]
-    return board
-
 
 if __name__ == "__main__":
     #start_time = time.time()
