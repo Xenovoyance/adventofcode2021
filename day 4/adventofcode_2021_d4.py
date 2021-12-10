@@ -1,21 +1,5 @@
 import time
 
-# draw a single number from a specific board
-def draw_a_number(board,number_to_check):
-    board = ["*"+number_to_check if x==number_to_check else x for x in board]
-    return board
-
-def play_bingo(bingo_numbers, bingo_boards):
-    for bid, board in enumerate(bingo_boards):
-        for nid, number in enumerate(bingo_numbers):
-            board = draw_a_number(board, number)
-            if (check_for_bingo(board)):
-                print("Board:" + str(bid) + " after " + str(nid) + " numbers (" + str(number) + ")")
-                if bid == 60 or bid == 65:
-                    print(board)
-                break
-
-
 def part_one():
     input = "adventofcode_2021_d4_input.txt"
     board_numbers = []
@@ -23,7 +7,6 @@ def part_one():
     boards = []
     _tmp_board = []
     
-    # get all the drawn numbers
     with open(input, "r") as f:
         for id, line in enumerate(f.readlines()):
             if id == 0:
@@ -42,35 +25,21 @@ def part_one():
                 _tmp_board = []
                 i = 0
             else:
-                i+=1
-    
-    
+                i+=1    
     play_bingo(drawn_numbers, boards)
-
-    #print(boards)
-
-    #boards[0] = draw_a_number(boards[0],'22')
-    #boards[0] = draw_a_number(boards[0],'13')
-    #boards[0] = draw_a_number(boards[0],'17')
-    #boards[0] = draw_a_number(boards[0],'11')
-    #boards[0] = draw_a_number(boards[0],'0')
-
-    #if check_for_bingo(boards[0]):
-    #    print("Bingo!")
 
 def check_for_bingo(board):
     bingo = False
-    if (board[0].startswith("*")):
-        if (board[5].startswith("*")):
-            if (board[10].startswith("*")):
-                if (board[15].startswith("*")):
-                    if (board[20].startswith("*")):
-                        bingo = True
     if (board[0].startswith("*")):
         if (board[1].startswith("*")):
             if (board[2].startswith("*")):
                 if (board[3].startswith("*")):
                     if (board[4].startswith("*")):
+                        bingo = True
+        if (board[5].startswith("*")):
+            if (board[10].startswith("*")):
+                if (board[15].startswith("*")):
+                    if (board[20].startswith("*")):
                         bingo = True
     if (board[1].startswith("*")):
         if (board[6].startswith("*")):
@@ -96,7 +65,6 @@ def check_for_bingo(board):
                 if (board[19].startswith("*")):
                     if (board[24].startswith("*")):
                         bingo = True
-    # horizontal
     if (board[5].startswith("*")):
         if (board[6].startswith("*")):
             if (board[7].startswith("*")):
@@ -123,7 +91,40 @@ def check_for_bingo(board):
                         bingo = True
     return bingo
 
+def draw_a_number(board,number_to_check):
+    board = ["*"+number_to_check if x==number_to_check else x for x in board]
+    return board
+
+def play_bingo(bingo_numbers, bingo_boards):
+    lowest = lowest_winning = 999
+    lowest_board = []
+    highest_board = []
+    highest = highest_winning = 0
+    for bid, board in enumerate(bingo_boards):
+        for nid, number in enumerate(bingo_numbers):
+            board = draw_a_number(board, number)
+            if (check_for_bingo(board)):
+                if nid < lowest: 
+                    lowest = nid
+                    lowest_board = board
+                    lowest_winning = number
+                if nid > highest: 
+                    highest = nid
+                    highest_board = board
+                    highest_winning = number
+                break
+
+    lowest_answer = 0
+    for num in lowest_board:
+        if not num.startswith("*"): lowest_answer += int(num)
+    print("First winner was board " + str(lowest) + " (winning number was " + str(lowest_winning) + "). Part 1 answer: " + str(int(lowest_answer) * int(lowest_winning)))
+
+    highest_answer = 0
+    for num in highest_board:
+        if not num.startswith("*"): highest_answer += int(num)
+    print("Last winner was board " + str(highest) + " (winning number was " + str(highest_winning) + "). Part 2 answer: " + str(int(highest_answer) * int(highest_winning)))
+
 if __name__ == "__main__":
-    #start_time = time.time()
-    #print("Part 1: " + part_one() + " executed in " + (str((time.time() - start_time)* 1000)) + " ms")
+    start_time = time.time()
     part_one()
+    print("Executed in " + (str((time.time() - start_time)* 1000)) + " ms")
