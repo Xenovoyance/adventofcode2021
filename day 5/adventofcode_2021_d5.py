@@ -25,30 +25,22 @@ def part_one():
     for i in range(len(x)):
         x1, x2 = x[i]
         y1, y2 = y[i]
+        matrix[y1][x1] += 1
+        matrix[y2][x2] += 1
         if x1 == x2:
-            matrix[y1][x1] += 1
-            matrix[y2][x2] += 1
-            y_difference = y1 - y2
-            
-            if y_difference>1:
-                for i in range(1,abs(y_difference)):
+            if abs(y1 - y2)>1:
+                for i in range(1,abs(y1 - y2)):
                     matrix[y1-i][x1] += 1
             else:
-                for i in range(1,abs(y_difference)):
+                for i in range(1,abs(y1 - y2)):
                     matrix[y1+i][x1] += 1
-        
-        if y1 == y2:
-            matrix[y1][x1] += 1
-            matrix[y2][x2] += 1
-            x_difference = x1 - x2
-
-            if x_difference>0:
-                for i in range(1,abs(x_difference)):
+        elif y1 == y2:
+            if (x1 - x2)>0:
+                for i in range(1,abs(x1 - x2)):
                     matrix[y2][x2+i] += 1
             else:
-                for i in range(1,abs(x_difference)):
+                for i in range(1,abs(x1 - x2)):
                     matrix[y2][x2-i] += 1
-
     return str(len(np.where(matrix >= 2)[0]))
 
 def part_two():
@@ -75,84 +67,52 @@ def part_two():
     for i in range(len(x)):
         x1, x2 = x[i]
         y1, y2 = y[i]
+
+        matrix[y1][x1] += 1
+        matrix[y2][x2] += 1
+
         if x1 == x2:
-            matrix[y1][x1] += 1
-            matrix[y2][x2] += 1
-            y_difference = y1 - y2
-            
-            if y_difference>1:
-                for i in range(1,abs(y_difference)):
+            if (y1-y2)>1:
+                for i in range(1,abs(y1-y2)):
                     matrix[y1-i][x1] += 1
             else:
-                for i in range(1,abs(y_difference)):
+                for i in range(1,abs(y1-y2)):
                     matrix[y1+i][x1] += 1
-        
-        if y1 == y2:
-            matrix[y1][x1] += 1
-            matrix[y2][x2] += 1
-            x_difference = x1 - x2
-
-            if x_difference>0:
-                for i in range(1,abs(x_difference)):
+        elif y1 == y2:
+            if (x1-x2)>0:
+                for i in range(1,abs(x1-x2)):
                     matrix[y2][x2+i] += 1
             else:
-                for i in range(1,abs(x_difference)):
+                for i in range(1,abs(x1-x2)):
                     matrix[y2][x2-i] += 1
-
-        if y1>y2 and x1>x2: # y down x down
-            matrix[y1][x1] += 1
-            matrix[y2][x2] += 1 
-            y_difference = y1 - y2
-            x_difference = x1 - x2
-
-            if abs(x_difference) > abs(y_difference):
-                for i in range(1,abs(x_difference)):
+        elif x1>x2 and y1>y2: # y down x up
+            if abs(x1 - x2) > abs(y1 - y2):
+                for i in range(1,abs(x1-x2)):
+                    matrix[y1-i][x1-i] += 1
+            else:
+                for i in range(1,abs(y1-y2)):
+                    matrix[y1-i][x1-i] += 1
+        elif y1<y2 and x1<x2: # y up x up
+            if abs(x1 - x2) > abs(y1 - y2):
+                for i in range(1,abs(x1-x2)):
                     matrix[y1+i][x1+i] += 1
             else:
-                for i in range(1,abs(y_difference)):
+                for i in range(1,abs(y1-y2)):
                     matrix[y1+i][x1+i] += 1
-
-        if y1<y2 and x1<x2: # y up x up
-            matrix[y1][x1] += 1
-            matrix[y2][x2] += 1 
-            y_difference = y1 - y2
-            x_difference = x1 - x2
-
-            if abs(x_difference) > abs(y_difference):
-                for i in range(1,abs(x_difference)):
-                    matrix[y1-1][x1-i] += 1
-            else:
-                for i in range(1,abs(y_difference)):
-                    matrix[y1-1][x1-i] += 1
-
-        if y1>y2 and x1<x2: # y down x up
-            matrix[y1][x1] += 1
-            matrix[y2][x2] += 1 
-            y_difference = y1 - y2
-            x_difference = x1 - x2
-
-            if abs(x_difference) > abs(y_difference):
-                for i in range(1,abs(x_difference)):
-                    matrix[y1-1][x1+i] += 1
-            else:
-                for i in range(1,abs(y_difference)):
+        elif x1<x2 and y1>y2: # y down x up
+            if abs(x1 - x2) > abs(y1 - y2):
+                for i in range(1,abs(x1-x2)):
                     matrix[y1-i][x1+i] += 1
-
-                
-        if y1<y2 and x1>x2: # y up x down
-            matrix[y1][x1] += 1
-            matrix[y2][x2] += 1 
-            y_difference = y1 - y2
-            x_difference = x1 - x2
-
-            if abs(x_difference) > abs(y_difference):
-                for i in range(1,abs(x_difference)):
+            else:
+                for i in range(1,abs(y1-y2)):
+                    matrix[y1-i][x1+i] += 1
+        elif x1>x2 and y1<y2: # y up x down
+            if abs(x1 - x2) > abs(y1 - y2):
+                for i in range(1,abs(x1-x2)):
                     matrix[y1+1][x1-i] += 1
             else:
-                for i in range(1,abs(y_difference)):
+                for i in range(1,abs(y1-y2)):
                     matrix[y1+i][x1-i] += 1
-
-    print(matrix)
 
     return str(len(np.where(matrix >= 2)[0]))
 
@@ -161,5 +121,3 @@ if __name__ == "__main__":
     print("Day 5, part 1: " + part_one() + " executed in " + (str((time.time() - start_time)* 1000)) + " ms")
     start_time = time.time()
     print("Day 5, part 2: " + part_two() + " executed in " + (str((time.time() - start_time)*1000)) + " ms") #18228 too low
-
-    #part_one()
