@@ -46,8 +46,8 @@ def fuel_cost_pt2(position,target):
 
 if __name__ == "__main__":
     start_time = time.time()
-    print("Day 7, part 1: " + part_one() + " executed in " + (str((time.time() - start_time)* 1000)) + " ms")
-    start_time = time.time()
-    print("Day 7, part 2: " + part_two() + " executed in " + (str((time.time() - start_time)*1000)) + " ms") #18228 too low
+    print(f"Day 7, part 1: {part_one()} executed in {(str((time.time() - start_time)* 1000))} ms")
+    tart_time = time.time()
+    print(f"Day 7, part 2: {part_two()} executed in {(str((time.time() - start_time)* 1000))} ms")
 
     #part_one()
