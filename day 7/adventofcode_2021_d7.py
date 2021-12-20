@@ -31,7 +31,7 @@ def fuel_cost_list_pt2(positions,target):
     return total_fuel
 
 if __name__ == "__main__":
-    start_time = time.time()
-    print(f"Day 7, part 1: {part_one()} executed in {(str((time.time() - start_time)* 1000))} ms")
-    tart_time = time.time()
-    print(f"Day 7, part 2: {part_two()} executed in {(str((time.time() - start_time)* 1000))} ms")
+    start_time = time.perf_counter()
+    print(f"Day 7, part 1: {part_one()} executed in {(str((time.perf_counter() - start_time)* 1000))} ms")
+    start_time = time.perf_counter()
+    print(f"Day 7, part 2: {part_two()} executed in {(str((time.perf_counter() - start_time)* 1000))} ms")
